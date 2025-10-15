@@ -8,8 +8,8 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "CommonJS",
-    "target": "ES2021",
+    "target": "es6",
+    "module": "es6",
     "types": [],
     // For nodejs:
      "lib": [
