@@ -6,8 +6,8 @@ type Value = {
     currency:string,
     value:number
 }
-function exchange(sumUAH:number = 900,currencyValues:Value[]=[{currency:'USD',value:30},{currency:'EUR',value:55}],exchangeCurrency:string='EUR'):number{
-    let res:number = 0;
+function exchange(sumUAH:number, currencyValues:Value[],exchangeCurrency:string):number{
+    let res = 0;
     for (const curObj of currencyValues) {
         if(curObj.currency === exchangeCurrency){
             res = sumUAH* curObj.value;
@@ -15,4 +15,4 @@ function exchange(sumUAH:number = 900,currencyValues:Value[]=[{currency:'USD',va
     }
     return res;
 }
-console.log(exchange());
+console.log(exchange(900, [{currency:'USD',value:30},{currency:'EUR',value:55}], 'EUR'));

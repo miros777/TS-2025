@@ -3,7 +3,7 @@
 Кількість li визначається другим аргументом, який є числовим (тут використовувати цикл)
 */
 function newTagUl(text:string = 'Hello!', countLi:number = 5):string {
-    let res:string = '';
+    let res = '';
     for (let i = 0; i < countLi; i++) {
         res += `<li>${text}</li>`;
     }
