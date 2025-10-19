@@ -1,7 +1,6 @@
 /*
- -- відфільтрувати , залишивши тільки курси з тривалістю більше 5 місяців
+ -- за допомоги map перетворити кожен елемент на наступний тип {id,title,monthDuration}
  */
-
 type Course = {title: string, monthDuration: number}
 
 let coursesAndDurationArray:Course[] = [
@@ -13,4 +12,5 @@ let coursesAndDurationArray:Course[] = [
     {title: 'Frontend', monthDuration: 4}
 ];
 
-console.log(coursesAndDurationArray.filter((elem) => elem.monthDuration === 5));
+let map = coursesAndDurationArray.map((elem, index) => ({id: index + 1, ...elem}));
+console.log(map);
