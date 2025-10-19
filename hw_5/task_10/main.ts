@@ -8,16 +8,17 @@ const getMinNumberFromArr = (arr: number[]): number => {
         throw new Error("Array is empty");
     }
 
-    let minNum: number = 0;
+    let minNum = arr[0];
 
     for (let i = 1; i < arr.length; i++) {
+        let number  = arr[i];
         // @ts-ignore
-        if (arr[i] < minNum) {
-            // @ts-ignore
-            minNum = arr[i];
+        if (number < minNum) {
+            minNum = number;
         }
     }
 
+    // @ts-ignore
     return minNum;
 };
 
