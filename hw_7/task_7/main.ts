@@ -1,19 +1,67 @@
 /*
-- створити класс для об'єктів Client з полями id, name, surname , email, phone, order (поле є масивом зі списком товарів)
-створити пустий масив, наповнити його 10 об'єктами Client
+- Взяти масив (Client [] з попереднього завдання).Відсортувати його по кількості товарів в полі order по зростанню. (sort)
 */
+
 class Client {
-    constructor(id, name, surname, email, phone, order) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.phone = phone;
-        this.order = order;
+    constructor(private _id:number, private _name:string, private _surname:string, private _email:string, private _phone:string, private _order:{id: number, name: string, price: number}[]) {
+        this._id = _id;
+        this._name = _name;
+        this._surname = _surname;
+        this._email = _email;
+        this._phone = _phone;
+        this._order = _order;
+    }
+
+    get id(): number {
+        return this._id;
+    }
+
+    set id(value: number) {
+        this._id = value;
+    }
+
+    get name(): string {
+        return this._name;
+    }
+
+    set name(value: string) {
+        this._name = value;
+    }
+
+    get surname(): string {
+        return this._surname;
+    }
+
+    set surname(value: string) {
+        this._surname = value;
+    }
+
+    get email(): string {
+        return this._email;
+    }
+
+    set email(value: string) {
+        this._email = value;
+    }
+
+    get phone(): string {
+        return this._phone;
+    }
+
+    set phone(value: string) {
+        this._phone = value;
+    }
+
+    get order(): { id: number; name: string; price: number }[] {
+        return this._order;
+    }
+
+    set order(value: { id: number; name: string; price: number }[]) {
+        this._order = value;
     }
 }
 
-let clients = [
+let clients:Client[] = [
     new Client(1, 'Gogi1', 'Kant_1', 'www@gmail.com', '+34543545', [{id: 1, name: 'Cap1', price: 100}, {
         id: 2,
         name: 'Cap2',
@@ -61,4 +109,5 @@ let clients = [
         price: 200
     }, {id: 3, name: 'Cap3', price: 300}, {id: 4, name: 'Cap4', price: 300}]),
 ];
-console.log(clients);
+
+console.log(clients.sort((a, b) => a.order.length - b.order.length));

@@ -1,62 +1,91 @@
 /*
-
-- Створити функцію конструктор яка дозволяє створювати об'єкти car, з властивостями модель, виробник, рік випуску, максимальна швидкість, об'єм двигуна. додати в об'єкт функції:
-    -- drive () - яка виводить в консоль `їдемо зі швидкістю ${максимальна швидкість} на годину`
-    -- info () - яка виводить всю інформацію про автомобіль в форматі `назва поля - значення поля`
-    -- increaseMaxSpeed (newSpeed) - яка підвищує значення максимальної швидкості на значення newSpeed
-    -- changeYear (newValue) - змінює рік випуску на значення newValue
-    -- addDriver (driver) - приймає об'єкт який "водій" з довільним набором полів, і додає його в поточний об'єкт car
+-створити класс/функцію конструктор попелюшка з полями ім'я, вік, розмір ноги. Створити масив з 10 попелюшок.
 */
-function Car(id, model, producer, year, speed, volume) {
-    this.id = id;
-    this.model = model;
-    this.producer = producer;
-    this.year = year;
-    this.speed = speed;
-    this.volume = volume;
+class Cinderella {
+    // @ts-ignore
+    name:string;
+    // @ts-ignore
+    age:number;
+    // @ts-ignore
+    sizeFoot:number;
 
-    this.drive = function () {
-        return `їдемо зі швидкістю ${this.speed} на годину`;
-    }
-    this.increaseMaxSpeed = function (newSpeed) {
-        return this.speed += newSpeed;
-    }
-    this.changeYear = function (newValue) {
-        return this.year = newValue;
-    }
-    this.addDriver = function (driver) {
-        this.driver = driver;
+    // @ts-ignore
+    constructor(private name:string, private age:number, private sizeFoot:number) {
+        this.name = name;
+        this.age = age;
+        this.sizeFoot = sizeFoot;
     }
 }
 
-let car1 = new Car(1, 'Megane', 'Renault', 1999, 200, '2.0');
-console.log(car1.drive());
-console.log(car1.increaseMaxSpeed(50));
-console.log(car1.changeYear(2020));
+let cinderellas:Cinderella[] = [
+    new Cinderella('Olya', 22, 35),
+    new Cinderella('Olya1', 32, 34),
+    new Cinderella('Olya2', 20, 35),
+    new Cinderella('Olya3', 30, 41),
+    new Cinderella('Olya4', 15, 36),
+    new Cinderella('Olya5', 54, 38),
+    new Cinderella('Olya6', 18, 40),
+    new Cinderella('Olya7', 21, 35),
+    new Cinderella('Olya8', 24, 40),
+    new Cinderella('Olya9', 28, 36)
+];
+console.log(cinderellas);
 
-car1.addDriver({id: 1, name: 'Grag'});
+/*
+Сторити об'єкт класу "принц" за допомоги класу який має поля ім'я, вік, туфелька яку він знайшов.
+ */
+class Prince extends Cinderella {
 
-Car.prototype.info = function () {
-    let res = '';
-    function show(obj) {
+}
 
-        for (const oneCar in obj) {
-            let val = obj[oneCar];
+let prince:Prince = new Prince('Kolya', 44, 36);
+console.log(prince);
 
-            if (typeof val === 'function') continue;
-            if (typeof val === 'object' && val !== null) {
-                res += `${oneCar}: `;
-                show(val);
-            } else if(typeof oneCar === 'string'){
-                res += `${oneCar}: ${val} `;
-            }
+/*
+За допомоги циклу знайти яка попелюшка повинна бути з принцом.
+*/
+for (const cinderella of cinderellas) {
+    if (cinderella.sizeFoot === prince.sizeFoot) {
+        console.log(cinderella);
+    }
+}
+/*
+Додатково, знайти необхідну попелюшку за допомоги функції масиву find та відповідного колбеку
+ */
+console.log(cinderellas.find(obj => obj.sizeFoot === prince.sizeFoot));
+/*
+Через Array.prototype. створити власний foreach, filter, map*/
+
+Array.prototype.forEachCustom = function<T> (callback:(value:T) => void):void {
+    for (let i = 0; i < this.length; i++) {
+        callback(this[i]);
+    }
+}
+let arr:number[] = [1, 2, 33];
+arr.forEachCustom(el => console.log(el));
+
+
+Array.prototype.customFilter = function<T> (callback: (value:T) => boolean): T[] {
+    const res: T[] = [];
+    for (const elem of this) {
+        if (callback(elem)) {
+            res.push(elem);
         }
-        return res;
     }
-
-    return show(this);
-
+    return res;
 }
-console.log('========INFO Car');
-console.log(car1.info());
-console.log('========INFO Car');
+console.log(cinderellas.customFilter((elem) => elem.age > 38));
+
+Array.prototype.mapCustom = function<T,U> (callback: (value:T) => U):U[] {
+    let res = [];
+    for (const el of this) {
+        res.push(callback(el));
+    }
+    return res;
+}
+let newCinderellaArr:Cinderella[] = cinderellas.mapCustom((elem) => {
+    return {
+        ...elem, age: elem.age * 2
+    };
+});
+console.log(newCinderellaArr);
